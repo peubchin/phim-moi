@@ -1,0 +1,198 @@
+.custom-select-wrapper {
+  height: 2.25em;
+  isolation: isolate;
+  z-index: 4;
+}
+
+.custom-select-wrapper select {
+  overflow: visible;
+}
+
+option {
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  color: var(--dark);
+  box-shadow: 0 0 0 1000px white inset;
+  border-style: solid;
+  border-width: 1px 0;
+  border-color: white;
+  transition: 0.2s ease-out;
+}
+
+option:first-child {
+  border-top-color: white;
+  border-radius: 0.375em 0.375em 0 0;
+}
+
+option:last-child {
+  border-bottom-color: white;
+  border-radius: 0 0 0.375em 0.375em;
+}
+
+option:checked {
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  border-color: var(--gold);
+}
+
+option:hover {
+  color: white;
+  -webkit-text-fill-color: white;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1000px var(--gold) inset;
+}
+
+option:first-child {
+  color: var(--dark);
+  -webkit-text-fill-color: var(--dark);
+  font-style: italic;
+  border-color: white;
+  box-shadow: 0 0 0px 1000px white inset;
+}
+
+option:first-child:checked,
+option:first-child:hover {
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+}
+
+*:-webkit-autofill,
+*:-webkit-autofill:hover {
+  transition: none;
+  box-shadow: 0 0 0px 1000px #ffffff inset;
+}
+
+*:-webkit-autofill:focus {
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  outline: 0;
+  border-color: var(--gold);
+  box-shadow: 0 0 0px 1000px #ffffff inset, 0 0 0 0.25rem var(--neonyellow);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-select:focus {
+  box-shadow: 0 0 0 0.25rem var(--neonyellow);
+}
+
+.form-check-input:checked {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 0.25rem var(--neonyellow);
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  box-shadow: 0 0 0 1000px #ffffff inset;
+}
+
+.form-control.is-valid:focus,
+.was-validated .form-control:valid:focus {
+  box-shadow: 0 0 0 1000px #ffffff inset,
+    0 0 0 0.25rem rgba(var(--bs-success-rgb), 0.25);
+}
+
+.form-control.is-invalid:focus,
+.was-validated .form-control:invalid:focus {
+  border-color: var(--bs-form-invalid-border-color);
+  box-shadow: 0 0 0 1000px #ffffff inset,
+    0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+}
+
+.form-wrapper .form-message {
+  display: none;
+}
+
+.form-wrapper-0 .message-0,
+.form-wrapper-1 .message-1,
+.form-wrapper-2 .message-2,
+.form-wrapper-3 .message-3,
+.form-wrapper-4 .message-4,
+.form-wrapper-5 .message-5,
+.form-wrapper-6 .message-6,
+.form-wrapper-default .form-message.default,
+.form-wrapper-valid .form-message.valid,
+.form-wrapper-invalid .form-message.invalid {
+  display: inline;
+}
+
+.form-wrapper-valid {
+  color: var(--green);
+  -webkit-text-fill-color: var(--green);
+}
+
+.form-wrapper-invalid {
+  color: var(--red);
+  -webkit-text-fill-color: var(--red);
+}
+
+.form-wrapper-valid input,
+.form-wrapper-valid select,
+.form-wrapper-valid textarea {
+  border-color: var(--green);
+}
+
+.form-wrapper-valid input:focus,
+.form-wrapper-valid select:focus,
+.form-wrapper-valid textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0px 1000px #ffffff inset, 0 0 0 0.25rem var(--lightgreen);
+}
+
+.form-wrapper-invalid input,
+.form-wrapper-invalid select,
+.form-wrapper-invalid textarea {
+  border-color: var(--red);
+}
+
+.form-wrapper-invalid input:focus,
+.form-wrapper-invalid select:focus,
+.form-wrapper-invalid textarea:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0px 1000px #ffffff inset, 0 0 0 0.25rem var(--lightred);
+}
+
+.btn-warning:focus-visible {
+  color: white;
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--gold);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--neonyellow);
+}
+
+.nav-link {
+  color: var(--dark);
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: var(--gold);
+  background-color: var(--beige);
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: var(--gold);
+}
+
+.btn-warning {
+  color: white;
+}
+
+.btn-warning:hover,
+.btn-warning:active {
+  color: var(--cloud);
+}
+
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+  color: var(--cloud);
+}

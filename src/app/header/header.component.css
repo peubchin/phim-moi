@@ -1,0 +1,34 @@
+header {
+  padding: 8px 0;
+  background: var(--beige);
+}
+
+header .navbar {
+  background-color: var(--beige);
+}
+
+header img:hover {
+  scale: 1.1;
+}
+
+header .nav-link,
+header .bi::before {
+  transition: all .4s;
+  color: var(--dark);
+  text-shadow: 1px 2px 8px transparent;
+}
+
+header .bi::before {
+  font-weight: bold !important;
+}
+
+header .nav-link:hover,
+header .nav-link:hover i::before {
+  color: var(--red);
+  text-shadow: 1px 2px 8px var(--red);
+  
+}
+
+header a:hover svg path {
+  filter: drop-shadow(2px 4px 8px var(--red));
+}

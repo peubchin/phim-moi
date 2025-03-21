@@ -1,0 +1,427 @@
+<div class="d-flex flex-wrap align-items-center justify-content-between mb-2">
+  <div class="d-inline-block">
+    Số lượng phim:
+    {{ movieList.length }}
+    |
+    Đánh giá TB:
+    <i class="bi bi-stars"></i>
+    {{ getAvgScoreAll() | number : '1.2-2' }}
+    |
+    Luợt xem TB:
+    <i class="bi bi-graph-up-arrow"></i>
+    {{ getAvgViewAll() | number : '1.0-0' }}
+  </div>
+  <button (click)="openAdd()" class="btn btn-success text-nowrap"
+    data-bs-toggle="modal" data-bs-target="#newMovie"><i
+      class="bi bi-file-plus-fill"></i>
+    Thêm phim
+  </button>
+</div>
+
+<form action="" class="d-flex gap-1 flex-wrap mb-1">
+  <div class="custom-select-wrapper">
+    <select [(ngModel)]="sort" name="sort" id="sort" class="form-select">
+      <option value="">Sắp xếp</option>
+      <option value="date">Mới nhất</option>
+      <option value="view">Xem nhiều nhất</option>
+      <option value="rate">Đánh giá tốt nhất</option>
+    </select>
+  </div>
+  <div>
+    <input [(ngModel)]="search" type="text" name="search" id="search"
+      class="form-control" placeholder="Tìm kiếm">
+  </div>
+</form>
+
+<div *ngFor="let movie of getPageMovieList()"
+  class="d-md-flex gap-2 p-2 border border-1" style="margin-top: -1px;">
+  <div class="flex-shrink-0">
+    <img class="m-auto" style="height: 15em;" src="{{ movie.imgURL }}" alt="">
+  </div>
+  <div class="flex-fill" style="min-width: 0;">
+    <h5>
+      <b>
+        {{ movie.name }}
+      </b>
+    </h5>
+    <div>
+      <span style="color: var(--gold);">
+        <i class="bi bi-star-fill"></i>
+        {{ getAvgScore(movie) | number : '1.1-1' }}
+      </span>
+      <!-- &nbsp; -->
+      <span class="text-secondary">
+        <i class="bi bi-calendar2-minus"></i>
+        {{ movie.date | date : 'dd/MM/y' }}
+        <!-- &nbsp; -->
+        <i class="bi bi-eye"></i>
+        {{ movie.view }}
+      </span>
+    </div>
+    <div class="text-truncate">
+      <div>
+        <b>Quốc gia:</b>
+        {{ movie.nation }}
+      </div>
+      <div>
+        <b>Thời lượng:</b>
+        {{ movie.duration | number : '1.0-0' }} phút
+      </div>
+      <div>
+        <b>Nhà sản xuất:</b>
+        {{ movie.producerList.join(', ') }}
+      </div>
+      <div>
+        <b>Đạo diễn:</b>
+        {{ movie.directorList.join(', ') }}
+      </div>
+      <div>
+        <b>Diễn viên</b>
+        {{ movie.castList.join(', ') }}
+      </div>
+      <div>
+        <b>Thể loại:</b>
+        {{ movie.categoryList.join(', ') }}
+      </div>
+    </div>
+    <div class="float-end">
+      <button (click)="remove(movie.ID)" class="btn btn-danger me-2">
+        Xóa
+      </button>
+      <button (click)="openUpdate(movie.ID)" type="submit"
+        data-bs-toggle="modal" data-bs-target="#newMovie"
+        class="btn btn-warning">
+        Sửa
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="text-center">
+
+  <div>
+    <div class="d-inline-flex gap-1 align-items-center">
+      Phần tử mỗi trang
+      <input [(ngModel)]="pgntInfo.itemsPerPage" id="moviePerPage" type="number" min="0"
+        class="form-control" style="width: 5em;">
+    </div>
+    <br>
+    <div class="d-inline-flex">
+      <button (click)="skipToStart()"
+        class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-skip-start-fill"></i>
+      </button>
+      <button (click)="doubleBack()"
+        class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-chevron-double-left"></i>
+      </button>
+      <button (click)="back()" class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="d-flex gap-1 align-items-center">
+        <input [(ngModel)]="pgntInfo.currentPage" id="currentMoviePage" type="number" min="0"
+          class="form-control" style="width: 5em;">
+        /{{ getPageQuantity() }}
+      </div>
+
+
+      <button (click)="next()" class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+      <button (click)="doubleNext()"
+        class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-chevron-double-right"></i>
+      </button>
+      <button (click)="skipToEnd()"
+        class="btn btn-light bg-transparent border-0">
+        <i class="bi bi-skip-end-fill"></i>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- modal -->
+<div class="modal fade" id="newMovie">
+  <div class="modal-dialog" style="max-width: 800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Phim
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <form [formGroup]="movieForm" class="modal-body">
+        <div class="container-fluid px-0">
+          <div class="row row-cols-1 row-cols-md-2">
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.name)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="name" type="text" class="form-control"
+                  id="movieName" placeholder="">
+                <label for="movieName">
+                  <span class="form-message default">
+                    Tên phim
+                  </span>
+                  <span class="form-message valid">
+                    Tên phim
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Tên phim không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="d-flex gap-3 mb-3">
+                <div
+                  [ngClass]="getInputWrapperClass(movieForm.controls.certificate)"
+                  class="form-wrapper flex-fill flex-shrink-"
+                  style="flex-basis: 0; min-width: 0;">
+                  <select formControlName="certificate" id="certificate"
+                    class="form-select h-100">
+                    <option value="">
+                      <ng-container
+                        *ngIf="movieForm.controls.certificate.valid || movieForm.controls.certificate.pristine">
+                        Nhãn
+                      </ng-container>
+                      <ng-container
+                        *ngIf="movieForm.controls.certificate.invalid && movieForm.controls.certificate.dirty">
+                        Nhãn không để trống
+                      </ng-container>
+                    </option>
+                    <option value="." class="d-none">
+                      Nhãn không để trống
+                    </option>
+                    <option value="P">P</option>
+                    <option value="K">K</option>
+                    <option value="T13">T13</option>
+                    <option value="T16">T16</option>
+                    <option value="T18">T18</option>
+                    <option value="C">C</option>
+                  </select>
+                </div>
+                <div
+                  [ngClass]="getInputWrapperClass(movieForm.controls.duration)"
+                  class="form-floating form-wrapper flex-fill"
+                  style="flex-basis: 0; min-width: 0;">
+                  <input formControlName="duration" type="number" min="0"
+                    step="1" class="form-control" id="duration" placeholder="">
+                  <label for="duration">
+                    <span class="form-message default">
+                      Thời lượng
+                    </span>
+                    <span class="form-message valid">
+                      Thời lượng
+                      <i class="bi bi-check"></i>
+                    </span>
+                    <span class="form-message invalid">
+                      Thời lượng > 0
+                      <i class="bi bi-exclamation-circle"></i>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div
+                [ngClass]="getInputFileWrapperClass(movieForm.controls.imgURL)"
+                class="form-wrapper mb-3">
+                <label for="imgURL" class="form-label">
+                  <span class="form-message default">
+                    Hình minh họa
+                  </span>
+                  <span class="form-message valid">
+                    Hình minh họa
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Hình minh họa không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+                <input formControlName="imgURL" class="form-control" type="file"
+                  id="imgURL">
+              </div>
+            </div>
+            <div class="col">
+              <div
+                [ngClass]="getInputFileWrapperClass(movieForm.controls.trailerURL)"
+                class="form-wrapper mb-3">
+                <label for="trailerURL" class="form-label">
+                  <span class="form-message default">
+                    Video
+                  </span>
+                  <span class="form-message valid">
+                    Video
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Video không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+                <input formControlName="trailerURL" class="form-control"
+                  type="file" id="trailerURL">
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.date)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="date" type="date" class="form-control"
+                  id="date" placeholder="">
+                <label for="date">
+                  <span class="form-message default">
+                    Ngày ra mắt
+                  </span>
+                  <span class="form-message valid">
+                    Ngày ra mắt
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Ngày ra mắt không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.nation)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="nation" type="text" class="form-control"
+                  id="nation" placeholder="">
+                <label for="nation">
+                  <span class="form-message default">
+                    Quốc gia
+                  </span>
+                  <span class="form-message valid">
+                    Quốc gia
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Quốc gia không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.producer)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="producer" type="text"
+                  class="form-control" id="producer" placeholder="">
+                <label for="producer">
+                  <span class="form-message default">
+                    Nhà sản xuất
+                  </span>
+                  <span class="form-message valid">
+                    Nhà sản xuất
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Nhà sản xuất không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.director)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="director" type="text"
+                  class="form-control" id="director" placeholder="">
+                <label for="director">
+                  <span class="form-message default">
+                    Đạo diễn
+                  </span>
+                  <span class="form-message valid">
+                    Đạo diễn
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Đạo diễn không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.cast)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="cast" type="text" class="form-control"
+                  id="cast" placeholder="">
+                <label for="cast">
+                  <span class="form-message default">
+                    Diễn viên
+                  </span>
+                  <span class="form-message valid">
+                    Diễn viên
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Diễn viên không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="getInputWrapperClass(movieForm.controls.category)"
+                class="form-floating form-wrapper mb-3">
+                <input formControlName="category" type="text"
+                  class="form-control" id="category" placeholder="">
+                <label for="category">
+                  <span class="form-message default">
+                    Thể loại
+                  </span>
+                  <span class="form-message valid">
+                    Thể loại
+                    <i class="bi bi-check"></i>
+                  </span>
+                  <span class="form-message invalid">
+                    Thể loại không để trống
+                    <i class="bi bi-exclamation-circle"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div [ngClass]="getInputWrapperClass(movieForm.controls.description)"
+            class="form-floating form-wrapper mb-3">
+            <textarea formControlName="description" type="text"
+              class="form-control" id="description" placeholder=""
+              style="height: 5em;"></textarea>
+            <label for="description">
+              <span class="form-message default">
+                Mô tả
+              </span>
+              <span class="form-message valid">
+                Mô tả
+                <i class="bi bi-check"></i>
+              </span>
+              <span class="form-message invalid">
+                Mô tả không để trống
+                <i class="bi bi-exclamation-circle"></i>
+              </span>
+            </label>
+          </div>
+
+        </div>
+        <button *ngIf="isAdd()" (click)="add()" class="btn btn-warning w-100">
+          Thêm
+        </button>
+        <button *ngIf="isUpdate()" (click)="update()"
+          class="btn btn-warning w-100">
+          Sửa
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

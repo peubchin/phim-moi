@@ -1,0 +1,12 @@
+.title {
+  color: var(--red);
+}
+
+form {
+  border-bottom: 2px solid var(--gold);
+}
+
+.news-content {
+  height: 4.5em;
+  overflow: hidden;
+}

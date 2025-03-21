@@ -1,0 +1,40 @@
+{{ process() }}
+<div>
+  <div class="d-inline-flex gap-1 align-items-center">
+    Phần tử mỗi trang
+    <input [(ngModel)]="pgntInfo.itemsPerPage" type="number" min="0" class="form-control"
+      style="width: 5em;">
+  </div>
+  <br>
+  <div class="d-inline-flex">
+    <button (click)="skipToStart()"
+      class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-skip-start-fill"></i>
+    </button>
+    <button (click)="doubleBack()"
+      class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-chevron-double-left"></i>
+    </button>
+    <button class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <div class="d-flex gap-1 align-items-center">
+      <input [(ngModel)]="pgntInfo.currentPage" type="number" min="0" class="form-control"
+        style="width: 5em;">
+      /{{ getPageQuantity() }}
+    </div>
+
+
+    <button class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+    <button class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-chevron-double-right"></i>
+    </button>
+    <button class="btn btn-light bg-transparent border-0">
+      <i class="bi bi-skip-end-fill"></i>
+    </button>
+
+  </div>
+</div>

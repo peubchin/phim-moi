@@ -1,0 +1,79 @@
+<form [formGroup]="form" (submit)="onSubmit()" action="" class="modal1 fade1"
+  id="login" tabindex="-1" aria-labelledby="login" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title my-3 fs-5 fw-bold flex-fill text-center"
+          id="exampleModalLabel">
+          Đăng nhập
+        </h1>
+      </div>
+      <div class="modal-body">
+        <div [ngClass]="getInputWrapperClass(form.controls.username)"
+          class="form-wrapper form-wrapper-default form-floating mb-3">
+          <input formControlName="username" type="text" class="form-control"
+            id="loginUsername" placeholder="" autocomplete="email">
+          <label for="loginUsername">
+            <span class="form-message message-0">
+              Tên đăng nhập
+            </span>
+            <span class="form-message message-1">
+              Tên đăng nhập
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message message-2">
+              Tên đăng nhập không để trống
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+        <div [ngClass]="getInputWrapperClass(form.controls.loginPassword)"
+          class="form-wrapper form-wrapper-default form-floating mb-3">
+          <input formControlName="loginPassword" type="password"
+            class="form-control" id="loginPassword" placeholder=""
+            autocomplete="current-password">
+          <label for="loginPassword">
+            <span class="form-message message-0">
+              Mật khẩu
+            </span>
+            <span class="form-message message-1">
+              Địa chỉ email
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message message-2">
+              Mật khẩu không để trống
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit"
+          class="mb-3 d-block w-100 btn btn-warning text-white"
+          data-bs-dismiss="modal1">
+          Ok
+        </button>
+        <div class="text-end">
+          <!-- <a href="" class="link-warning d-inline-block mb-3">
+            Lấy lại mật khẩu
+          </a> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="me-auto">
+          {{ message }}
+        </div>
+        <div>
+          <a routerLink="/" class="link-warning">
+            Trang chủ
+          </a>
+          <a routerLink="/sign-up-page" class="ms-1 link-warning">
+            Đăng kí
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</form>
+<app-logout (loggedOut)="onLoggedOut()"></app-logout>

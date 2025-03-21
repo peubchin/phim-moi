@@ -1,0 +1,26 @@
+.title {
+  color: var(--red);
+}
+
+.name {
+  display: grid;
+  align-items: center;
+  font-size: 1.2em;
+  color: white;
+  background: var(--gold);
+}
+
+.pack {
+  padding: 8px;
+  background-color: var(--beige);
+}
+
+button:disabled {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 0.25rem var(--neonyellow);
+}

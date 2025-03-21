@@ -1,0 +1,185 @@
+<app-header></app-header>
+<div class="features">
+  <div class="container-fluid">
+    <div class="content-wrapper row">
+      <a class="col-md-2 col-sm-3 col-6" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature1.png" alt="">
+      </a>
+      <a class="col-md-2 col-sm-3 col-6" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature2.png" alt="">
+      </a>
+      <a class="col-md-2 col-sm-3 col-6" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature3.png" alt="">
+      </a>
+      <a class="col-md-2 col-sm-3 col-6" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature4.png" alt="">
+      </a>
+      <a class="col-md-2 col-sm-3 col-6 d-none d-md-block" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature5.png" alt="">
+      </a>
+      <a class="col-md-2 col-sm-3 col-6 d-none d-md-block" routerLink="./">
+        <img class="m-auto" src="assets/img/features/feature6.png" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="slides">
+  <div id="carouselExample" class="carousel slide content-wrapper">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/img/slides/slide1.jpg" class="d-block w-100"
+          alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/img/slides/slide2.jpg" class="d-block w-100"
+          alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/img/slides/slide3.jpg" class="d-block w-100"
+          alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/img/slides/slide4.jpg" class="d-block w-100"
+          alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/img/slides/slide5.jpg" class="d-block w-100"
+          alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button"
+      data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button"
+      data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<div class="slides d-none">
+  <div class="content-wrapper">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="assets/img/slides/slide1.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/img/slides/slide2.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/img/slides/slide3.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/img/slides/slide4.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/img/slides/slide5.jpg" alt="">
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</div>
+
+<div class="movies">
+  <div class="content-wrapper">
+    <div class="movies-title">
+      <div class="movies-title-bar"></div>
+      <div class="movies-title-content">
+        Phim Moi
+      </div>
+      <div class="movies-title-bar"></div>
+    </div>
+    <div>
+      <div class="container-fluid">
+        <div class="g-1 row row-cols-2 row-cols-sm-4 row-cols-md-4">
+          <div class="col" *ngFor="let movie of movieList">
+            <div class="movies-item">
+              <div>
+                <img src="{{ movie.imgURL }}" alt="" class="w-100">
+              </div>
+              <div class="movies-item-info">
+                <div>
+                  <div class="movies-item-info-name">
+                    {{ movie.name }}
+                  </div>
+                  <div class="movies-item-info-links">
+                    <a routerLink="/movie-detail/{{ movie.ID }}">Chi tiết</a>
+                    <a routerLink="/movie-detail/{{ movie.ID }}">Xem ngay</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="movies d-none">
+  <div class="content-wrapper">
+    <div class="movies-title">
+      <div class="movies-title-bar"></div>
+      <div class="movies-title-content">
+        Phim Moi
+      </div>
+      <div class="movies-title-bar"></div>
+    </div>
+    <div class="movies-swiper">
+      <div class="swiper-button-prev"></div>
+
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide movies-item" *ngFor="let movie of movieList">
+            <a href="">
+              <img src="{{ movie.imgURL }}" alt="">
+            </a>
+            <div class="movies-item-info">
+              <div>
+                <div class="movies-item-info-name">
+                  {{ movie.name }}
+                </div>
+                <div class="movies-item-info-links">
+                  <a href="">Chi tiết</a>
+                  <a href="">Xem ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</div>
+
+<div class="ads">
+  <div class="content-wrapper">
+    <div class="ads-title">
+      <i class="bi bi-lightning-charge"></i>
+      Ưu đãi
+      <i class="bi bi-lightning-charge"></i>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-1 align-items-center">
+        <div class="col-12 col-sm-6 order-sm-2">
+          <img src="assets/img/ads/ad1.jpg" alt="">
+        </div>
+        <div class="col-6 col-sm-3 order-sm-1">
+          <img src="assets/img/ads/ad2.jpg" alt="">
+        </div>
+        <div class="col-6 col-sm-3 order-sm-3">
+          <img src="assets/img/ads/ad3.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

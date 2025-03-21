@@ -1,0 +1,199 @@
+<app-header></app-header>
+<div class="card content-wrapper">
+  <div class="card-header">
+    <i class="bi bi-person-fill pic"></i>
+  </div>
+  <div class="card-body">
+    <h1 class="name">
+      {{ currentUser.name }}
+    </h1>
+    <table class="w-100">
+      <tbody>
+        <tr>
+          <td>Tên đăng nhập</td>
+          <td>{{ currentUser.username }}</td>
+        </tr>
+        <tr>
+          <td>Địa chỉ email</td>
+          <td>{{ currentUser.email }}</td>
+        </tr>
+        <tr>
+          <td>Số điện thoại</td>
+          <td>{{ currentUser.phone }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button (click)="edit()" class="ms-1 btn btn-warning" type="button" data-bs-toggle="modal"
+        data-bs-target="#change">Chỉnh sửa</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- modal -->
+<form [formGroup]="form" (input)="onInput()" action="" class="modal fade"
+  id="change" tabindex="-1" aria-labelledby="signUp" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold flex-fill text-center"
+          id="exampleModalLabel">
+          Cập nhật
+        </h1>
+      </div>
+      <div class="modal-body">
+        <div [ngClass]="getInputWrapperClass(form.controls.name)"
+          class="form-floating form-wrapper mb-3">
+          <input formControlName="name" type="text" class="form-control"
+            id="name" placeholder="" autocomplete="new-password">
+          <label for="name">
+            <span class="form-message default">
+              Tên người dùng
+            </span>
+            <span class="form-message valid">
+              Tên người dùng
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message invalid">
+              Tên không được để trống
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <div [ngClass]="getUsernameWrapperClass(form.controls.username)"
+          class="form-floating form-wrapper mb-3">
+          <input formControlName="username" type="text" class="form-control"
+            id="username" placeholder="" autocomplete="username">
+          <label for="username">
+            <span class="form-message message-0">
+              Tên đăng nhập
+            </span>
+            <span class="form-message message-1">
+              Tên đăng nhập
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message message-2">
+              Tên đăng nhập phải có từ 6 kí tự
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+            <span class="form-message message-3">
+              Tên đăng nhập đã được sử dụng
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <div [ngClass]="getEmailWrapperClass(form.controls.email)"
+          class="form-floating form-wrapper mb-3">
+          <input formControlName="email" type="email" class="form-control"
+            id="email" placeholder="" autocomplete="email">
+          <label for="email">
+            <span class="form-message message-0">
+              Địa chỉ email
+            </span>
+            <span class="form-message message-1">
+              Địa chỉ email
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message message-2">
+              Email phải có định dạng ten&commat;vidu
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+            <span class="form-message message-3">
+              Email đã được sử dụng
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <div [ngClass]="getInputWrapperClass(form.controls.phone)"
+          class="form-floating form-wrapper mb-3">
+          <input formControlName="phone" type="text" class="form-control"
+            id="tel" placeholder="" autocomplete="tel">
+          <label for="tel">
+            <span class="form-message default">
+              Số điện thoại
+            </span>
+            <span class="form-message valid">
+              Số điện thoại
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message invalid">
+              Số điện thoại phải có 10 chữ số
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <div [ngClass]="getPasswordWrapperClass(form.controls.password)"
+          class="form-floating form-wrapper mb-3">
+          <input (input)="this.form.controls.confirmPassword.updateValueAndValidity()" formControlName="password" type="password" class="form-control"
+            id="password" placeholder="" autocomplete="new-password">
+          <label for="password">
+            <span class="form-message message-0">
+              Mật khẩu
+            </span>
+            <span class="form-message message-1">
+              Mật khẩu
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message message-2">
+              Mật khẩu phải có từ 8 kí tự
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+            <span class="form-message message-3">
+              Mật khẩu phải có chữ
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+            <span class="form-message message-4">
+              Mật khẩu phải có số
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+            <span class="form-message message-5">
+              Mật khẩu phải có kí tự đặc biệt
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <div [ngClass]="getInputWrapperClass(form.controls.confirmPassword)"
+          class="form-floating form-wrapper mb-3">
+          <input formControlName="confirmPassword" type="password"
+            class="form-control" id="confirmPassword" placeholder=""
+            autocomplete="new-password">
+          <label for="confirmPassword">
+            <span class="form-message default">
+              Nhập lại
+            </span>
+            <span class="form-message valid">
+              Nhập lại
+              <i class="bi bi-check"></i>
+            </span>
+            <span class="form-message invalid">
+              Mật khẩu không trùng khớp
+              <i class="bi bi-exclamation-circle"></i>
+            </span>
+          </label>
+        </div>
+
+        <button (click)="submit()"
+          class="mb-31 d-block w-100 btn btn-warning text-white"
+          data-bs-dismiss="modal1">
+          Ok
+        </button>
+
+        <div class="me-auto" style="min-height: 1.5em;">
+          {{ message }}
+        </div>
+      </div>
+
+      <div class="modal-footer1">
+
+      </div>
+    </div>
+  </div>
+</form>
+
+<app-footer></app-footer>

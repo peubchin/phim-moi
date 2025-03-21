@@ -1,0 +1,10 @@
+<div class="">
+  <button (click)="toggleLike()" [ngClass]="{'liked': isLiked}" class="btn btn-outline-dark useful-btn">
+    Hữu ích
+    <i class="bi bi-hand-thumbs-up"></i>
+  </button>
+  <button (click)="toggleDislike()" [ngClass]="{'disliked': isDisliked}" class="btn btn-outline-dark useless-btn ms-2">
+    Không hữu ích
+    <i class="bi bi-hand-thumbs-down"></i>
+  </button>
+</div>

@@ -1,0 +1,30 @@
+<div class="modal fade" id="logout" tabindex="-1" aria-labelledby="logout"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold flex-fill text-center"
+          id="exampleModalLabel">
+          Đăng xuất
+          <button type="button" class="btn-close float-end"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+        </h1>
+      </div>
+      <div class="modal-body">
+        Xác nhận đăng xuất
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button" class="btn btn-secondary"
+            data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button (click)="onSubmit()" type="submit" id="subminBTN"
+            class="ms-1 btn btn-warning text-white" data-bs-dismiss="modal">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

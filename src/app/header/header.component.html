@@ -1,0 +1,92 @@
+<header>
+  <div class="content-wrapper">
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <a class="navbar-brand me-0" routerLink="/">
+          <img style="height: 2em; min-width: fit-content;" class="logo"
+            src="assets/img/logo.png" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active1" aria-current="page" routerLink="/">
+                <i class="bi bi-house-door"></i>
+                Trang chủ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/movie-page">
+                <i class="bi bi-film"></i>
+                Xem phim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/news-page">
+                <i class="bi bi-fire"></i>
+                Tin tức
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/pack-page">
+                <i class="bi bi-box-seam"></i>
+                Gói phim
+              </a>
+            </li>
+          </ul>
+
+          <ul *ngIf="!isLoggedIn()" class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/sign-up-page" data-bs-toggle="modal1"
+                data-bs-target="#signUp">
+                <i class="bi bi-clipboard-check"></i>
+                Đăng kí
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login-page" data-bs-toggle="modal1"
+                data-bs-target="#login">
+                <i class="bi bi-person-video2"></i>
+                Đăng nhập
+              </a>
+            </li>
+          </ul>
+
+          <ul *ngIf="isLoggedIn()" class="navbar-nav">
+            <li class="nav-item">
+              <button class="nav-link" href="" data-bs-toggle="modal"
+                data-bs-target="#logout">
+                <i class="bi bi-box-arrow-left"></i>
+                Đăng xuất
+              </button>
+            </li>
+            <li *ngIf="!isAdmin()" class="nav-item">
+              <a class="nav-link" routerLink="/account-page" data-bs-toggle="modal1"
+                data-bs-target="#login">
+                <i class="bi bi-person-video"></i>
+                Tài khoản
+              </a>
+            </li>
+            <li *ngIf="isAdmin()" class="nav-item">
+              <a class="nav-link" routerLink="/manage-page" data-bs-toggle="modal1"
+                data-bs-target="#login">
+                <i class="bi bi-gear-wide-connected"></i>
+                Quản trị
+              </a>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Modal -->
+  <app-logout></app-logout>
+
+</header>

@@ -1,0 +1,84 @@
+.title {
+  color: var(--red);
+}
+
+.card-body {
+  position: relative;
+}
+
+.row {
+  overflow: hidden;
+  transition-delay: 0.5s;
+  transition-duration: 0s;
+  transition: overflow 0s 0.5s allow-discrete;
+}
+
+.row:hover {
+  transition-delay: 0s;
+  overflow: visible;
+}
+
+.info-box {
+  position: absolute;
+  background-color: black;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%) scale(0.75);
+  box-shadow: 0 0 0.5em slategray;
+  width: 100%;
+  min-width: 300px;
+  aspect-ratio: 3/2;
+  opacity: 0;
+  flex-direction: column;
+  display: flex;
+  visibility: hidden;
+  transition: 0.5s;
+}
+
+.card-body:hover .info-box {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-link {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, transparent, black);
+}
+
+.movie-name {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.info-bottom a {
+  font-size: small;
+}
+
+.info-end span {
+  display: inline-block;
+  background: rgb(121, 121, 5);
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  padding: 2px 4px;
+}
+
+.carousel-inner,
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,26 @@
+hr {
+  max-width: var(--max);
+  margin: 1em auto;
+  border: 1px solid var(--dark);
+  opacity: 1;
+}
+
+.brands a {
+  border-bottom: 1px solid transparent;
+}
+
+.brands a:hover {
+  scale: 1.05;
+  translate: 0 -4px;
+}
+
+.terms img:hover {
+  scale: 0.9;
+}
+
+footer {
+  height: 200px;
+  background-image: url(../../../public/assets/img/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

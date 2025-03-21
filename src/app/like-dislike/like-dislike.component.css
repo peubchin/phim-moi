@@ -1,0 +1,38 @@
+.useful-btn,
+.useless-btn,
+.useful-btn *::before,
+.useless-btn *::before {
+  color: var(--dark);
+  background-color: white;
+  transition: 0.4s;
+}
+
+.useful-btn:hover,
+.useful-btn:hover *::before {
+  color: lightgreen;
+  border-color: lightgreen;
+}
+
+.useless-btn:hover,
+.useless-btn:hover *::before {
+  color: lightcoral;
+  border-color: lightcoral;
+}
+
+.useful-btn:active,
+.useful-btn:active *::before,
+.liked,
+.liked *::before {
+  color: white !important;
+  background-color: lightgreen; /* Màu khi Like */
+  border-color: lightgreen;
+}
+
+.useless-btn:active,
+.useless-btn:active *::before,
+.disliked,
+.disliked *::before {
+  color: white !important;
+  background-color: lightcoral; /* Màu khi Dislike */
+  border-color: lightcoral;
+}

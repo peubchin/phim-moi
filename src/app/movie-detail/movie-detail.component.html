@@ -1,0 +1,162 @@
+<app-header></app-header>
+<div class="content-wrapper container-fluid p-3">
+  <video [src]="productDetel.trailerURL" controls class="w-100 object-fit-cover"
+    style="aspect-ratio: 21/9;"></video>
+  <div class="w-100" style="text-align: center;">
+    <h1 class="mb-0">{{productDetel.name}}</h1>
+    <div style="font-size: small; font-style: italic; color: gray;">[ Phát hành
+      lúc {{productDetel.date | date : 'dd/MM/y' }} ]</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-4">
+      <img [src]="productDetel.imgURL" alt="" width="100%">
+    </div>
+    <div class="col-12 col-sm-8 d-flex align-items-end">
+      <div>
+        <!-- Thời lượng -->
+        <div class="me-2">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Thời lượng: {{ productDetel.duration }} phút
+        </div>
+
+        <!-- Đánh giá -->
+        <div>
+          <span class="fs-5">
+            <i class="bi bi-star-fill" aria-hidden="true"
+              style="color: orange;"></i>
+            {{ getAvgScore() | number : '1.2-2' }}
+          </span>
+          ({{ productDetel.commentList.length }} đánh giá)
+        </div>
+
+        <!-- Quấc gia -->
+        <p class="d-inline-block">Quốc gia: {{productDetel.nation}}</p>
+        <p *ngFor="let item of productDetel?.producerList">Nhà sản xuất:
+          <b>{{item}}</b>
+        </p>
+
+        <!-- Thể loại -->
+        <div>
+          <p class="d-inline-block me-2">Thể loại: </p>
+          <p style=" border: solid 1px;border-radius: 10px; padding: 4px 8px;"
+            class="d-inline-block me-2 shadow "
+            *ngFor="let item of productDetel?.categoryList">{{item}}</p>
+        </div>
+
+        <!--Đạo diễn  -->
+        <div>
+          <p class="d-inline-block me-2">Đạo diễn: </p>
+          <p style=" border: solid 1px;border-radius: 10px; padding: 4px 8px;"
+            class="d-inline-block shadow"
+            *ngFor="let item of productDetel?.directorList">{{item}}</p>
+        </div>
+
+        <!-- Diễn viên -->
+        <div>
+          Diễn viên:
+          <p style="  border: solid 1px;border-radius: 10px; padding: 4px 8px;"
+            class="d-inline-block shadow me-2"
+            *ngFor="let item of productDetel?.castList">{{item}}</p>
+        </div>
+        <h5 style="border-left:solid orange ; padding-left:5px ;">Nội dung
+          phim</h5>
+        <p>{{productDetel.description}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- comment -->
+  <div>
+    <h5>
+      <b>
+        Bình luận
+      </b>
+    </h5>
+    <form [formGroup]="form">
+      <input formControlName="score" type="number" id="score" class="d-none">
+      <div class="d-flex align-items-center gap-1 fs-5 mb-2">
+        <button *ngFor="let x of [].constructor(5); index as index"
+          (click)="changeScore(index + 1)"
+          class="btn btn-warning bg-transparent border-0 fs-5 p-0 lh-1"
+          style="color: var(--gold);">
+          <i *ngIf="index < getInt(form.value.score)"
+            class="bi bi-star-fill"></i>
+          <i *ngIf="index >= getInt(form.value.score)" class="bi bi-star"></i>
+        </button>
+        <div style="color: var(--gold);">
+          {{ form.value.score }}
+        </div>
+      </div>
+      <textarea formControlName="content" id="content"
+        class="form-control mb-2 p-2" style="line-height: 1.2; height: 5.8em;"
+        placeholder="Nội dung"></textarea>
+      <div class="d-flex gap-2 align-items-center">
+        <div class="ms-auto">
+          {{ formMessage }}
+        </div>
+        <button *ngIf="!isCommented()" (click)="submit()"
+          class="d-block btn btn-warning">
+          Thêm
+        </button>
+        <ng-container *ngIf="isCommented()">
+          <button (click)="deleteComment()" class="d-block btn btn-danger">
+            Xóa
+          </button>
+          <button (click)="submit()" class="d-block btn btn-warning">
+            Cập nhập
+          </button>
+        </ng-container>
+      </div>
+
+    </form>
+    <div *ngFor="let comment of getCommentList()" class="mb-2">
+      <div>
+        <b>
+          {{ comment.username }}
+        </b>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+        <app-rating [rate]="comment.score"></app-rating>
+        <span class="text-secondary">
+          {{ comment.date | date : 'dd/MM/y' }}
+        </span>
+      </div>
+      <div class="overflow-hidden" style="line-height: 1.2; max-height: 4.8em;">
+        {{ comment.content }}
+      </div>
+    </div>
+    <nav class="text-center">
+      <button *ngIf="needShowSeeMore()" (click)="seeMore()"
+        class="btn link-warning">
+        Xem thêm
+      </button>
+      <button *ngIf="needShowCollapse()" (click)="collapse()"
+        class="btn link-warning">
+        Thu gọn
+      </button>
+    </nav>
+    <!-- <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentCommentPage === 1">
+          <button class="page-link" (click)="goToPage(currentCommentPage - 1)"
+            aria-label="Previous">&laquo;</button>
+        </li>
+        <li class="page-item"
+          *ngFor="let page of [].constructor(getTotalPages()); let i = index"
+          [class.active]="currentCommentPage === i + 1">
+          <button class="page-link" (click)="goToPage(i + 1)">
+            {{ i + 1 }}
+          </button>
+        </li>
+        <li class="page-item"
+          [class.disabled]="currentCommentPage === getTotalPages()">
+          <button class="page-link" (click)="goToPage(currentCommentPage + 1)"
+            aria-label="Next">&raquo;</button>
+        </li>
+      </ul>
+    </nav> -->
+  </div>
+
+</div>
+<app-footer></app-footer>
